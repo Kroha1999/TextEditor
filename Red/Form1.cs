@@ -21,12 +21,22 @@ namespace Red
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //initializing sizes of fonts
             for (int i = 1; i <= 72; i++)
                 cmb_size.Items.Add(i);
+            cmb_size.SelectedIndex = 9;
+            //cmb_size.Update();
 
+            //initializing FontFamilies
             System.Drawing.Text.InstalledFontCollection InstalledFonts = new System.Drawing.Text.InstalledFontCollection();
             foreach (FontFamily font in InstalledFonts.Families)
                 cmb_FontStyle.Items.Add(font.Name);
+
+            cmb_FontStyle.Items.RemoveAt(0);
+            cmb_FontStyle.SelectedIndex = cmb_FontStyle.FindString("Times New Roman");
+            //cmb_FontStyle.Update();
+
+            textEditor.Font = new Font(cmb_FontStyle.SelectedItem.ToString(), (int)cmb_size.SelectedItem, FontStyle.Regular);
         }
 
 
@@ -55,15 +65,32 @@ namespace Red
 
         private void cmb_size_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int n = 0;
-            int.TryParse(cmb_size.SelectedItem.ToString(), out n);
-            ChangeSize(textEditor,n);
+
+            if (cmb_size.SelectedItem == null || cmb_FontStyle.SelectedItem == null) return;
+            //if at least 1 symbol selected(selected text change)
+            if (textEditor.SelectionLength > 0)
+            {
+                int n = 0;
+                int.TryParse(cmb_size.SelectedItem.ToString(), out n);
+                ChangeSize(textEditor, n);
+            }
+            //simple text change
+            else
+                textEditor.SelectionFont = new Font(cmb_FontStyle.SelectedItem.ToString(), (int)cmb_size.SelectedItem, FontStyle.Regular);
+
         }
 
 
         private void cmb_FontStyle_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetFontFamily(cmb_FontStyle.SelectedItem.ToString());
+            if (cmb_size.SelectedItem == null || cmb_FontStyle.SelectedItem == null) return;
+            //if at least 1 symbol selected(selected text change)
+            if (textEditor.SelectionLength > 0)
+                SetFontFamily(cmb_FontStyle.SelectedItem.ToString());
+            //simple text change
+            else
+                textEditor.SelectionFont = new Font(cmb_FontStyle.SelectedItem.ToString(), (int)cmb_size.SelectedItem, FontStyle.Regular);
+            
         }
 
         void SetFontFamily(string name)

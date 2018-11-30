@@ -12,9 +12,9 @@ C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\bin\Debug\Red.exe
 C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\bin\Debug\Red.exe
 C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\bin\Debug\Red.pdb
 C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\obj\Debug\Red.csprojAssemblyReference.cache
-C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\obj\Debug\Red.Form1.resources
 C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\obj\Debug\Red.Properties.Resources.resources
 C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\obj\Debug\Red.csproj.GenerateResource.cache
 C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\obj\Debug\Red.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\obj\Debug\Red.exe
 C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\obj\Debug\Red.pdb
+C:\Users\Admin\Desktop\УНІВЕР\Kursova\Red\TextEditor\Red\obj\Debug\Red.MyTextEditor.resources

@@ -48,7 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textEditor.Location = new System.Drawing.Point(-2, 114);
             this.textEditor.Name = "textEditor";
-            this.textEditor.Size = new System.Drawing.Size(1083, 437);
+            this.textEditor.Size = new System.Drawing.Size(1079, 431);
             this.textEditor.TabIndex = 0;
             this.textEditor.Text = "";
             // 
@@ -134,8 +134,9 @@
             // 
             // cmb_size
             // 
+            this.cmb_size.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmb_size.FormattingEnabled = true;
-            this.cmb_size.Location = new System.Drawing.Point(364, 34);
+            this.cmb_size.Location = new System.Drawing.Point(364, 30);
             this.cmb_size.Name = "cmb_size";
             this.cmb_size.Size = new System.Drawing.Size(102, 28);
             this.cmb_size.TabIndex = 1;
@@ -146,8 +147,9 @@
             this.cmb_FontStyle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmb_FontStyle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmb_FontStyle.FormattingEnabled = true;
-            this.cmb_FontStyle.Location = new System.Drawing.Point(6, 34);
+            this.cmb_FontStyle.Location = new System.Drawing.Point(5, 30);
             this.cmb_FontStyle.Name = "cmb_FontStyle";
             this.cmb_FontStyle.Size = new System.Drawing.Size(353, 28);
             this.cmb_FontStyle.TabIndex = 0;
