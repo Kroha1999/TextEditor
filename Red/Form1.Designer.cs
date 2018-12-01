@@ -49,6 +49,7 @@
             this.textEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textEditor.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textEditor.Location = new System.Drawing.Point(0, 111);
             this.textEditor.Name = "textEditor";
             this.textEditor.Size = new System.Drawing.Size(1173, 430);
@@ -163,6 +164,7 @@
             // 
             // colorPanel
             // 
+            this.colorPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.colorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.colorPanel.Location = new System.Drawing.Point(336, 35);
             this.colorPanel.Name = "colorPanel";

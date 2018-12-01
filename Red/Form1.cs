@@ -13,7 +13,7 @@ namespace Red
     public partial class MyTextEditor : Form
     {
 
-
+//!!!!!!!!!!FORM!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         public MyTextEditor()
         {
             InitializeComponent();
@@ -33,7 +33,6 @@ namespace Red
             for (int i = 1; i <= 72; i++)
                 cmb_size.Items.Add(i);
             cmb_size.SelectedIndex = 8;
-            //cmb_size.Update();
 
             //initializing FontFamilies
             System.Drawing.Text.InstalledFontCollection InstalledFonts = new System.Drawing.Text.InstalledFontCollection();
@@ -42,41 +41,37 @@ namespace Red
 
             cmb_FontFamily.Items.RemoveAt(0);
             cmb_FontFamily.SelectedIndex = cmb_FontFamily.FindString("Times New Roman");
-            //cmb_FontStyle.Update();
-
-            textEditor.Font = new Font(cmb_FontFamily.SelectedItem.ToString(), (int)cmb_size.SelectedItem, FontStyle.Regular);
+            
         }
 
-
-
-       
-
+        //STYLE BUTTONS
         private void Bold_Click(object sender, EventArgs e)
         {
-            Change_ButStyle(textEditor, FontStyle.Bold);
+            Change_ButStyle(textEditor, Bold);
             textEditor.Focus();
         }
                                    
-
         private void Italic_Click(object sender, EventArgs e)
         {
-            Change_ButStyle(textEditor, FontStyle.Italic);
+            Change_ButStyle(textEditor, Italic);
             textEditor.Focus();
         }        
 
         private void UnderLine_Click(object sender, EventArgs e)
         {
-            Change_ButStyle(textEditor, FontStyle.Underline);
+            Change_ButStyle(textEditor, UnderLine);
             textEditor.Focus();
         }
 
         private void Strikeout_Click(object sender, EventArgs e)
         {
-            Change_ButStyle(textEditor, FontStyle.Strikeout);
+            Change_ButStyle(textEditor, Strikeout);
             textEditor.Focus();
         }
 
         //FONT and SIZE comboBoxes functions
+
+        //TEXTEDITOR
         private void textEditor_SelectionChanged(object sender, EventArgs e)
         {
             if (textEditor.SelectionLength == 0)
@@ -84,10 +79,36 @@ namespace Red
                 cmb_size.SelectedItem = (int)textEditor.SelectionFont.Size;
                 cmb_FontFamily.SelectedIndex = cmb_FontFamily.FindString(textEditor.SelectionFont.FontFamily.Name);
 
-                Console.WriteLine("size = " + textEditor.SelectionFont.Size + ", font = " + textEditor.SelectionFont.FontFamily + ", selfont = " + cmb_FontFamily.SelectedItem.ToString());
+                switch (textEditor.SelectionFont.Style)
+                {
+                    case FontStyle.Strikeout:
+                        unpressBtns(Strikeout);
+                        break;
+
+                    case FontStyle.Underline:
+                        unpressBtns(UnderLine);
+                        break;
+
+                    case FontStyle.Bold:
+                        unpressBtns(Bold);
+                        break;
+
+                    case FontStyle.Italic:
+                        unpressBtns(Italic);
+                        break;
+
+                    default:
+                        unpressBtns();
+                        break;
+                }
+
+                Console.WriteLine("size = " + textEditor.SelectionFont.Size + ", font = " + textEditor.SelectionFont.FontFamily.ToString() + ", selected font = " + cmb_FontFamily.SelectedItem.ToString() + ", Style = " + textEditor.SelectionFont.Style.ToString());
             }
+
         }
 
+
+        //SIZE_FONT
         private void cmb_size_SelectedIndexChanged(object sender, EventArgs e)
         {
             
@@ -107,7 +128,7 @@ namespace Red
 
         }
 
-
+        //FONTFAMILY
         private void cmb_FontStyle_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmb_FontFamily.SelectedItem == null) return;
@@ -122,70 +143,54 @@ namespace Red
         }
 
 
-
-
-        //General Functions
-        private void Change_ButStyle(RichTextBox rtb, FontStyle style)
+//!!!!!!!!!General Functions!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        private void Change_ButStyle(RichTextBox rtb,  Button btn)
         {
+            FontStyle style;
+            if (btn == Strikeout) style = FontStyle.Strikeout;
+            else if (btn == UnderLine) style = FontStyle.Underline;
+            else if (btn == Bold) style = FontStyle.Bold;
+            else  style = FontStyle.Italic;
+
+
             if (rtb.SelectionLength > 0)
                 ChangeStyle(rtb, style);
             else
             {
-                //but - button with which we are working - notbuts butons to be be unpressed
-                Button but, notbut1, notbut2, notbut3;
-                but = notbut1 = notbut2 = notbut3 = null;
-
-                switch (style)
+                //if not pressed - press
+                if (btn.BackColor == NotPressedCol)
                 {
-                    case FontStyle.Bold:
-                        but = Bold;
-                        notbut1 = Strikeout;
-                        notbut2 = UnderLine;
-                        notbut3 = Italic;
-                        break;
-
-                    case FontStyle.Strikeout:
-                        but = Strikeout;
-                        notbut1 = Bold;
-                        notbut2 = UnderLine;
-                        notbut3 = Italic;
-                        break;
-
-                    case FontStyle.Underline:
-                        but = UnderLine;
-                        notbut1 = Bold;
-                        notbut2 = Strikeout;
-                        notbut3 = Italic;
-                        break;
-
-                    case FontStyle.Italic:
-                        but = Italic;
-                        notbut1 = Bold;
-                        notbut2 = UnderLine;
-                        notbut3 = Strikeout;
-                        break;
-
-                }
-
-
-                if (but.BackColor == NotPressedCol)
-                {
-                    but.BackColor = PressedCol;
                     textEditor.SelectionFont = new Font(textEditor.SelectionFont.FontFamily, textEditor.SelectionFont.Size, style);
+                    //only 1 style allowed
+                    unpressBtns(btn);
                 }
+                // else unpress
                 else
                 {
-                    but.BackColor = NotPressedCol;
                     textEditor.SelectionFont = new Font(textEditor.SelectionFont.FontFamily, textEditor.SelectionFont.Size, FontStyle.Regular);
+                    unpressBtns();
                 }
 
-                //only 1 style allowed
-                notbut1.BackColor = Color.FromArgb(224, 224, 224);
-                notbut2.BackColor = Color.FromArgb(224, 224, 224);
-                notbut3.BackColor = Color.FromArgb(224, 224, 224);
+                
             }
         }
 
+        private void unpressBtns(Button except = null)
+        {
+
+            Italic.BackColor = NotPressedCol;
+            Bold.BackColor = NotPressedCol;
+            Strikeout.BackColor = NotPressedCol;
+            UnderLine.BackColor = NotPressedCol;
+
+            if (except == Strikeout) Strikeout.BackColor = PressedCol;
+            else if (except == UnderLine) UnderLine.BackColor = PressedCol;
+            else if (except == Bold) Bold.BackColor = PressedCol;
+            else if (except == Italic) Italic.BackColor = PressedCol;        
+                       
+
+        }
+        //for more than 1 symb
         private void ChangeStyle(RichTextBox rtb, FontStyle style_to_change)
         {
             int selectionStart = rtb.SelectionStart;
