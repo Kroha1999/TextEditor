@@ -37,7 +37,7 @@ namespace Red
             //initializing FontFamilies
             System.Drawing.Text.InstalledFontCollection InstalledFonts = new System.Drawing.Text.InstalledFontCollection();
             foreach (FontFamily font in InstalledFonts.Families)
-                cmb_FontFamily.Items.Add(font.Name);
+                cmb_FontFamily.Items.Add(font.Name.ToString());
 
             cmb_FontFamily.Items.RemoveAt(0);
             cmb_FontFamily.SelectedIndex = cmb_FontFamily.FindString("Times New Roman");
@@ -69,45 +69,52 @@ namespace Red
             textEditor.Focus();
         }
 
-        //FONT and SIZE comboBoxes functions
-
         //TEXTEDITOR
+        Font prewFont = null;
         private void textEditor_SelectionChanged(object sender, EventArgs e)
         {
+            Font curFont;
             if (textEditor.SelectionLength == 0)
             {
-                cmb_size.SelectedItem = (int)textEditor.SelectionFont.Size;
-                cmb_FontFamily.SelectedIndex = cmb_FontFamily.FindString(textEditor.SelectionFont.FontFamily.Name);
+                colorPanel.BackColor = textEditor.SelectionColor;
 
-                switch (textEditor.SelectionFont.Style)
+                curFont = textEditor.SelectionFont;
+                cmb_FontFamily.SelectedItem = curFont.FontFamily.Name.ToString();
+                cmb_size.SelectedItem = (int)curFont.Size;
+
+                unpressBtns(curFont.Style);
+                textEditor.SelectionFont = curFont;
+                prewFont = null;
+
+                
+            }
+            else
+            {
+                if (textEditor.SelectionColor != Color.Empty)
+                    colorPanel.BackColor = textEditor.SelectionColor;
+                else colorPanel.BackColor = Color.GhostWhite;
+
+                curFont = textEditor.SelectionFont;
+                if(curFont != null)
                 {
-                    case FontStyle.Strikeout:
-                        unpressBtns(Strikeout);
-                        break;
+                    if (curFont.Style != FontStyle.Regular) unpressBtns(curFont.Style);
+                    else unpressBtns(curFont.Style);
 
-                    case FontStyle.Underline:
-                        unpressBtns(UnderLine);
-                        break;
-
-                    case FontStyle.Bold:
-                        unpressBtns(Bold);
-                        break;
-
-                    case FontStyle.Italic:
-                        unpressBtns(Italic);
-                        break;
-
-                    default:
-                        unpressBtns();
-                        break;
+                    if (curFont.Size.Equals(13))
+                        cmb_size.SelectedItem = null;
                 }
-
-                Console.WriteLine("size = " + textEditor.SelectionFont.Size + ", font = " + textEditor.SelectionFont.FontFamily.ToString() + ", selected font = " + cmb_FontFamily.SelectedItem.ToString() + ", Style = " + textEditor.SelectionFont.Style.ToString());
+                else
+                {
+                    unpressBtns();
+                    cmb_size.SelectedItem = null;
+                    cmb_FontFamily.SelectedItem = null;
+                }
+                prewFont = curFont;
             }
 
         }
 
-
+        //FONT and SIZE comboBoxes functions
         //SIZE_FONT
         private void cmb_size_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -122,8 +129,8 @@ namespace Red
             }
             //simple text change
             else
-                if(cmb_size.SelectedItem != null && cmb_FontFamily.SelectedItem != null)
-                    textEditor.SelectionFont = new Font(cmb_FontFamily.SelectedItem.ToString(), (int)cmb_size.SelectedItem, FontStyle.Regular);
+                if(cmb_size.SelectedItem != null)
+                    textEditor.SelectionFont = new Font(textEditor.SelectionFont.FontFamily, (int)cmb_size.SelectedItem, textEditor.SelectionFont.Style);
             textEditor.Focus();
 
         }
@@ -137,9 +144,25 @@ namespace Red
                 ChangeFontFamily(textEditor,cmb_FontFamily.SelectedItem.ToString());
             //simple text change
             else
-                if (cmb_size.SelectedItem != null && cmb_FontFamily.SelectedItem != null)
-                    textEditor.SelectionFont = new Font(cmb_FontFamily.SelectedItem.ToString(), (int)cmb_size.SelectedItem, FontStyle.Regular);
+                if (cmb_FontFamily.SelectedItem != null)
+                    textEditor.SelectionFont = new Font(cmb_FontFamily.SelectedItem.ToString(), textEditor.SelectionFont.Size, textEditor.SelectionFont.Style);
             textEditor.Focus();
+        }
+        
+        //ColorPanel
+        private void colorPanel_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                _color = colorDialog1.Color;
+                colorPanel.BackColor = _color;
+            }
+        }
+
+        private void colorPanel_BackColorChanged(object sender, EventArgs e)
+        {
+            if(!colorPanel.BackColor.Equals(Color.GhostWhite))
+                textEditor.SelectionColor = colorPanel.BackColor;
         }
 
 
@@ -154,7 +177,10 @@ namespace Red
 
 
             if (rtb.SelectionLength > 0)
-                ChangeStyle(rtb, style);
+            {
+                ChangeStyle(rtb, style, btn);
+
+            }
             else
             {
                 //if not pressed - press
@@ -171,7 +197,7 @@ namespace Red
                     unpressBtns();
                 }
 
-                
+
             }
         }
 
@@ -187,11 +213,41 @@ namespace Red
             else if (except == UnderLine) UnderLine.BackColor = PressedCol;
             else if (except == Bold) Bold.BackColor = PressedCol;
             else if (except == Italic) Italic.BackColor = PressedCol;        
-                       
-
+                      
         }
-        //for more than 1 symb
-        private void ChangeStyle(RichTextBox rtb, FontStyle style_to_change)
+
+        private void unpressBtns(FontStyle except)
+        {
+
+            switch(except)
+            {
+                case FontStyle.Strikeout:
+                    unpressBtns(Strikeout);
+                    break;
+
+                case FontStyle.Underline:
+                    unpressBtns(UnderLine);
+                    break;
+
+                case FontStyle.Bold:
+                    unpressBtns(Bold);
+                    break;
+
+                case FontStyle.Italic:
+                    unpressBtns(Italic);
+                    break;
+
+                default:
+                    unpressBtns();
+                    break;
+            }
+
+            
+        }
+
+
+        //for more than 1 symb selected
+        private void ChangeStyle(RichTextBox rtb, FontStyle style_to_change, Button btn)
         {
             int selectionStart = rtb.SelectionStart;
             int selectionLength = rtb.SelectionLength;
@@ -213,7 +269,12 @@ namespace Red
 
 
             if (style_to_change == style && checkStyle == true)
-                style_to_change = FontStyle.Regular; 
+            {
+                style_to_change = FontStyle.Regular;
+                unpressBtns();
+            }
+            else
+                unpressBtns(btn);
             
 
             for (int x = selectionStart; x < selectionEnd; ++x)
@@ -262,40 +323,8 @@ namespace Red
         }
 
 
-        // NULL EXCERPTION WORKERS
-        int getSelectionFontSize(RichTextBox rtb)
-        {
-            int selectionStart = rtb.SelectionStart;
-            int selectionLength = rtb.SelectionLength;
-            int selectionEnd = selectionStart + selectionLength;
+        
 
-            rtb.Select(rtb.SelectionStart, 1);
-
-            
-            int size = (int)rtb.SelectionFont.Size;
-
-            for (int x = selectionStart + 1; x < selectionEnd; ++x)
-            {
-                // Set temporary selection
-                rtb.Select(x, 1);
-                // Toggle font style of the selection   
-                if (size != (int)rtb.SelectionFont.Size)
-                {
-                    rtb.Select(selectionStart, selectionLength);
-                    return -1;
-                }
-            }
-            rtb.Select(selectionStart, selectionLength);
-            return size;
-        }
-
-        private void colorPanel_Click(object sender, EventArgs e)
-        {
-            if (colorDialog1.ShowDialog() == DialogResult.OK)
-            {
-                _color = colorDialog1.Color;
-                colorPanel.BackColor = _color;
-            }
-        }
+        
     }
 }

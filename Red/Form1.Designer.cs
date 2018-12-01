@@ -170,6 +170,7 @@
             this.colorPanel.Name = "colorPanel";
             this.colorPanel.Size = new System.Drawing.Size(50, 50);
             this.colorPanel.TabIndex = 4;
+            this.colorPanel.BackColorChanged += new System.EventHandler(this.colorPanel_BackColorChanged);
             this.colorPanel.Click += new System.EventHandler(this.colorPanel_Click);
             // 
             // MyTextEditor
