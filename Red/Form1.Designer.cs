@@ -36,21 +36,25 @@
             this.Bold = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cmb_size = new System.Windows.Forms.ComboBox();
-            this.cmb_FontStyle = new System.Windows.Forms.ComboBox();
+            this.cmb_FontFamily = new System.Windows.Forms.ComboBox();
+            this.colorPanel = new System.Windows.Forms.Panel();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // textEditor
             // 
+            this.textEditor.AcceptsTab = true;
             this.textEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textEditor.Location = new System.Drawing.Point(-2, 114);
+            this.textEditor.Location = new System.Drawing.Point(0, 111);
             this.textEditor.Name = "textEditor";
-            this.textEditor.Size = new System.Drawing.Size(1079, 431);
+            this.textEditor.Size = new System.Drawing.Size(1173, 430);
             this.textEditor.TabIndex = 0;
             this.textEditor.Text = "";
+            this.textEditor.SelectionChanged += new System.EventHandler(this.textEditor_SelectionChanged);
             // 
             // groupBox1
             // 
@@ -59,7 +63,7 @@
             this.groupBox1.Controls.Add(this.Italic);
             this.groupBox1.Controls.Add(this.UnderLine);
             this.groupBox1.Controls.Add(this.Bold);
-            this.groupBox1.Location = new System.Drawing.Point(792, 17);
+            this.groupBox1.Location = new System.Drawing.Point(891, 17);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(240, 80);
             this.groupBox1.TabIndex = 1;
@@ -67,16 +71,15 @@
             // 
             // Strikeout
             // 
-            this.Strikeout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Strikeout.AllowDrop = true;
+            this.Strikeout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.Strikeout.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Strikeout, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Strikeout.Location = new System.Drawing.Point(9, 18);
             this.Strikeout.Name = "Strikeout";
             this.Strikeout.Size = new System.Drawing.Size(50, 50);
             this.Strikeout.TabIndex = 3;
             this.Strikeout.Text = "V";
-            this.Strikeout.UseVisualStyleBackColor = true;
+            this.Strikeout.UseVisualStyleBackColor = false;
             this.Strikeout.Click += new System.EventHandler(this.Strikeout_Click);
             // 
             // Italic
@@ -84,13 +87,14 @@
             this.Italic.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Italic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.Italic.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Italic.Location = new System.Drawing.Point(121, 18);
             this.Italic.Name = "Italic";
             this.Italic.Size = new System.Drawing.Size(50, 50);
             this.Italic.TabIndex = 1;
             this.Italic.Text = "I";
-            this.Italic.UseVisualStyleBackColor = true;
+            this.Italic.UseVisualStyleBackColor = false;
             this.Italic.Click += new System.EventHandler(this.Italic_Click);
             // 
             // UnderLine
@@ -98,13 +102,14 @@
             this.UnderLine.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.UnderLine.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.UnderLine.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.UnderLine.Location = new System.Drawing.Point(65, 18);
             this.UnderLine.Name = "UnderLine";
             this.UnderLine.Size = new System.Drawing.Size(50, 50);
             this.UnderLine.TabIndex = 2;
             this.UnderLine.Text = "U";
-            this.UnderLine.UseVisualStyleBackColor = true;
+            this.UnderLine.UseVisualStyleBackColor = false;
             this.UnderLine.Click += new System.EventHandler(this.UnderLine_Click);
             // 
             // Bold
@@ -112,21 +117,22 @@
             this.Bold.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.Bold.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.Bold.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Bold.Location = new System.Drawing.Point(177, 18);
             this.Bold.Name = "Bold";
             this.Bold.Size = new System.Drawing.Size(50, 50);
             this.Bold.TabIndex = 0;
             this.Bold.Text = "B";
-            this.Bold.UseVisualStyleBackColor = true;
+            this.Bold.UseVisualStyleBackColor = false;
             this.Bold.Click += new System.EventHandler(this.Bold_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.cmb_size);
-            this.groupBox2.Controls.Add(this.cmb_FontStyle);
-            this.groupBox2.Location = new System.Drawing.Point(302, 17);
+            this.groupBox2.Controls.Add(this.cmb_FontFamily);
+            this.groupBox2.Location = new System.Drawing.Point(401, 17);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(472, 80);
             this.groupBox2.TabIndex = 2;
@@ -142,24 +148,34 @@
             this.cmb_size.TabIndex = 1;
             this.cmb_size.SelectedIndexChanged += new System.EventHandler(this.cmb_size_SelectedIndexChanged);
             // 
-            // cmb_FontStyle
+            // cmb_FontFamily
             // 
-            this.cmb_FontStyle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.cmb_FontFamily.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmb_FontStyle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmb_FontStyle.FormattingEnabled = true;
-            this.cmb_FontStyle.Location = new System.Drawing.Point(5, 30);
-            this.cmb_FontStyle.Name = "cmb_FontStyle";
-            this.cmb_FontStyle.Size = new System.Drawing.Size(353, 28);
-            this.cmb_FontStyle.TabIndex = 0;
-            this.cmb_FontStyle.SelectedIndexChanged += new System.EventHandler(this.cmb_FontStyle_SelectedIndexChanged);
+            this.cmb_FontFamily.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmb_FontFamily.FormattingEnabled = true;
+            this.cmb_FontFamily.Location = new System.Drawing.Point(5, 30);
+            this.cmb_FontFamily.Name = "cmb_FontFamily";
+            this.cmb_FontFamily.Size = new System.Drawing.Size(353, 28);
+            this.cmb_FontFamily.TabIndex = 0;
+            this.cmb_FontFamily.SelectedIndexChanged += new System.EventHandler(this.cmb_FontStyle_SelectedIndexChanged);
+            // 
+            // colorPanel
+            // 
+            this.colorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.colorPanel.Location = new System.Drawing.Point(336, 35);
+            this.colorPanel.Name = "colorPanel";
+            this.colorPanel.Size = new System.Drawing.Size(50, 50);
+            this.colorPanel.TabIndex = 4;
+            this.colorPanel.Click += new System.EventHandler(this.colorPanel_Click);
             // 
             // MyTextEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1077, 544);
+            this.ClientSize = new System.Drawing.Size(1176, 544);
+            this.Controls.Add(this.colorPanel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textEditor);
@@ -182,7 +198,9 @@
         private System.Windows.Forms.Button UnderLine;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox cmb_size;
-        private System.Windows.Forms.ComboBox cmb_FontStyle;
+        private System.Windows.Forms.ComboBox cmb_FontFamily;
+        private System.Windows.Forms.Panel colorPanel;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }
 

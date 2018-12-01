@@ -9,13 +9,7 @@ namespace Red
     class FontProperties
     {
 
-        System.Drawing.Font CurrentFont;
-        System.Drawing.FontStyle NewFont;
 
-        void ChangeSelectedFont()
-        {
-
-        }
 
     }
 }
