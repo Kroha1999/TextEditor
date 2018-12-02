@@ -165,8 +165,19 @@ namespace Red
                 textEditor.SelectionColor = colorPanel.BackColor;
         }
 
+        //SaveFIle Button
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            SaveMyFile();
+        }
 
-//!!!!!!!!!General Functions!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //OpenFile Button
+        private void OpenButton_Click(object sender, EventArgs e)
+        {
+            OpenMyFile();
+        }
+
+        //!!!!!!!!!General Functions!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private void Change_ButStyle(RichTextBox rtb,  Button btn)
         {
             FontStyle style;
@@ -322,8 +333,29 @@ namespace Red
             rtb.Select(selectionStart, selectionLength);
         }
 
+        public void SaveMyFile()
+        {
+            SaveFileDialog saveFile1 = new SaveFileDialog();
+            saveFile1.DefaultExt = "*.rtf";
+            saveFile1.Filter = "RTF Files|*.rtf";
 
-        
+            if (saveFile1.ShowDialog() == DialogResult.OK && saveFile1.FileName.Length > 0)
+            {
+                textEditor.SaveFile(saveFile1.FileName);
+            }
+        }
+
+        public void OpenMyFile()
+        {
+            OpenFileDialog openFile1 = new OpenFileDialog();
+            openFile1.DefaultExt = "*.rtf";
+            openFile1.Filter = "RTF Files|*.rtf";
+
+            if (openFile1.ShowDialog() == DialogResult.OK && openFile1.FileName.Length > 0)
+            {
+                textEditor.LoadFile(openFile1.FileName);
+            }
+        }
 
         
     }

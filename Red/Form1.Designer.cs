@@ -39,6 +39,8 @@
             this.cmb_FontFamily = new System.Windows.Forms.ComboBox();
             this.colorPanel = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.SaveButton = new System.Windows.Forms.Button();
+            this.OpenButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -173,11 +175,35 @@
             this.colorPanel.BackColorChanged += new System.EventHandler(this.colorPanel_BackColorChanged);
             this.colorPanel.Click += new System.EventHandler(this.colorPanel_Click);
             // 
+            // SaveButton
+            // 
+            this.SaveButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.SaveButton.Location = new System.Drawing.Point(12, 12);
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(111, 35);
+            this.SaveButton.TabIndex = 5;
+            this.SaveButton.Text = "Save file";
+            this.SaveButton.UseVisualStyleBackColor = false;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
+            // 
+            // OpenButton
+            // 
+            this.OpenButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.OpenButton.Location = new System.Drawing.Point(141, 12);
+            this.OpenButton.Name = "OpenButton";
+            this.OpenButton.Size = new System.Drawing.Size(106, 35);
+            this.OpenButton.TabIndex = 6;
+            this.OpenButton.Text = "Open file";
+            this.OpenButton.UseVisualStyleBackColor = false;
+            this.OpenButton.Click += new System.EventHandler(this.OpenButton_Click);
+            // 
             // MyTextEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1176, 544);
+            this.Controls.Add(this.OpenButton);
+            this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.colorPanel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -204,6 +230,8 @@
         private System.Windows.Forms.ComboBox cmb_FontFamily;
         private System.Windows.Forms.Panel colorPanel;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button SaveButton;
+        private System.Windows.Forms.Button OpenButton;
     }
 }
 
