@@ -41,7 +41,6 @@ namespace Red
 
             cmb_FontFamily.Items.RemoveAt(0);
             cmb_FontFamily.SelectedIndex = cmb_FontFamily.FindString("Times New Roman");
-            
         }
 
         //STYLE BUTTONS
@@ -76,6 +75,23 @@ namespace Red
             Font curFont;
             if (textEditor.SelectionLength == 0)
             {
+                if (textEditor.SelectionCharOffset > 0)
+                {
+                    UpperIndex.BackColor = PressedCol;
+                    UnderIndex.BackColor = NotPressedCol;
+                }
+                else if (textEditor.SelectionCharOffset == 0)
+                {
+                    UpperIndex.BackColor = NotPressedCol;
+                    UnderIndex.BackColor = NotPressedCol;
+                }
+                else
+                {
+                    UpperIndex.BackColor = NotPressedCol;
+                    UnderIndex.BackColor = PressedCol;
+                }
+                
+
                 colorPanel.BackColor = textEditor.SelectionColor;
 
                 curFont = textEditor.SelectionFont;
@@ -135,6 +151,29 @@ namespace Red
 
         }
 
+        
+        //Increase downcrease fon buttons
+        private void Size_plus_Click(object sender, EventArgs e)
+        {
+            
+            if (textEditor.SelectionLength == 0)
+                cmb_size.SelectedIndex += 1;
+            else
+                ChangeSize(textEditor, 1, 'U');
+            textEditor.Focus();
+        }
+
+        private void Size_minus_Click(object sender, EventArgs e)
+        {
+            
+            if (textEditor.SelectionLength == 0)
+                cmb_size.SelectedIndex -= 1;
+            else
+                ChangeSize(textEditor, 1, 'D');
+            
+            textEditor.Focus();
+        }
+
         //FONTFAMILY
         private void cmb_FontStyle_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -177,8 +216,87 @@ namespace Red
             OpenMyFile();
         }
 
+        //Allignment BTNS
+        private void LeftBtn_Click(object sender, EventArgs e)
+        {
+            textEditor.SelectionAlignment = HorizontalAlignment.Left;
+            textEditor.Focus();
+        }
+
+        private void CenterBtn_Click(object sender, EventArgs e)
+        {
+            textEditor.SelectionAlignment = HorizontalAlignment.Center;
+            textEditor.Focus();
+        }
+
+        private void RightBtn_Click(object sender, EventArgs e)
+        {
+            textEditor.SelectionAlignment = HorizontalAlignment.Right;
+            textEditor.Focus();
+        }
+
+        //Upperindex  
+        private void UpperIndex_Click(object sender, EventArgs e)
+        {
+            Font saveFont = null;
+            if (UnderIndex.BackColor == PressedCol)
+                UnderIndex_Click(sender, e);
+            else if (UpperIndex.BackColor == NotPressedCol)
+            {
+                saveFont = textEditor.SelectionFont;
+                textEditor.SelectionCharOffset = (int)(saveFont.Size*0.7);
+                textEditor.SelectionFont = new Font(saveFont.FontFamily,saveFont.Size/2,saveFont.Style);
+                
+                UpperIndex.BackColor = PressedCol;
+            }
+            else
+            {
+
+                saveFont = textEditor.SelectionFont;
+                textEditor.SelectionCharOffset = 0;
+                cmb_size.SelectedItem = upInt(saveFont.Size * 2);
+
+                UpperIndex.BackColor = NotPressedCol;
+
+            }
+            textEditor.Focus();
+        }
+
+        //UnderIndex
+        private void UnderIndex_Click(object sender, EventArgs e)
+        {
+            Font saveFont = null;
+            if (UpperIndex.BackColor == PressedCol)
+                UpperIndex_Click(sender, e);
+            else if (UnderIndex.BackColor == NotPressedCol)
+            {
+                saveFont = textEditor.SelectionFont;
+                textEditor.SelectionCharOffset = -(int)(saveFont.Size * 0.2);
+                textEditor.SelectionFont = new Font(saveFont.FontFamily, saveFont.Size / 2, saveFont.Style);
+
+                UnderIndex.BackColor = PressedCol;
+            }
+            else
+            {
+
+                saveFont = textEditor.SelectionFont;
+                textEditor.SelectionCharOffset = 0;
+                cmb_size.SelectedItem = upInt(saveFont.Size * 2);
+
+                UnderIndex.BackColor = NotPressedCol;
+
+            }
+            textEditor.Focus();
+        }
+
         //!!!!!!!!!General Functions!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        private void Change_ButStyle(RichTextBox rtb,  Button btn)
+
+        private int upInt(float numb)
+        {
+            return (int)(numb + 0.5);
+        }
+
+    private void Change_ButStyle(RichTextBox rtb,  Button btn)
         {
             FontStyle style;
             if (btn == Strikeout) style = FontStyle.Strikeout;
@@ -317,19 +435,31 @@ namespace Red
             rtb.Select(selectionStart, selectionLength);
         }
 
-        private void ChangeSize(RichTextBox rtb, float size)
+        private void ChangeSize(RichTextBox rtb, float size,char p = 'o')
         {
             int selectionStart = rtb.SelectionStart;
             int selectionLength = rtb.SelectionLength;
             int selectionEnd = selectionStart + selectionLength;
+
+
+
             for (int x = selectionStart; x < selectionEnd; ++x)
             {
+
                 // Set temporary selection
                 rtb.Select(x, 1);
                 // Toggle font style of the selection   
-                rtb.SelectionFont = new Font(rtb.SelectionFont.FontFamily, size, rtb.SelectionFont.Style);
+                if (p == 'o')
+                    rtb.SelectionFont = new Font(rtb.SelectionFont.FontFamily, size, rtb.SelectionFont.Style);
+                //increment size
+                else if (p == 'U')
+                    rtb.SelectionFont = new Font(rtb.SelectionFont.FontFamily, rtb.SelectionFont.Size+1, rtb.SelectionFont.Style);
+                //downgrade size
+                else if (p == 'D')
+                    rtb.SelectionFont = new Font(rtb.SelectionFont.FontFamily, rtb.SelectionFont.Size - 1, rtb.SelectionFont.Style);
             }
             // Restore the original selection
+
             rtb.Select(selectionStart, selectionLength);
         }
 
