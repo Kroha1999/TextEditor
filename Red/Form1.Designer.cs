@@ -35,6 +35,8 @@
             this.UnderLine = new System.Windows.Forms.Button();
             this.Bold = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Size_minus = new System.Windows.Forms.Button();
+            this.Size_plus = new System.Windows.Forms.Button();
             this.cmb_size = new System.Windows.Forms.ComboBox();
             this.cmb_FontFamily = new System.Windows.Forms.ComboBox();
             this.colorPanel = new System.Windows.Forms.Panel();
@@ -47,11 +49,11 @@
             this.LeftBtn = new System.Windows.Forms.Button();
             this.UpperIndex = new System.Windows.Forms.Button();
             this.UnderIndex = new System.Windows.Forms.Button();
-            this.Size_plus = new System.Windows.Forms.Button();
-            this.Size_minus = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // textEditor
@@ -154,6 +156,30 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Font";
             // 
+            // Size_minus
+            // 
+            this.Size_minus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Size_minus.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Size_minus.Location = new System.Drawing.Point(422, 53);
+            this.Size_minus.Name = "Size_minus";
+            this.Size_minus.Size = new System.Drawing.Size(45, 30);
+            this.Size_minus.TabIndex = 3;
+            this.Size_minus.Text = "A-";
+            this.Size_minus.UseVisualStyleBackColor = true;
+            this.Size_minus.Click += new System.EventHandler(this.Size_minus_Click);
+            // 
+            // Size_plus
+            // 
+            this.Size_plus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Size_plus.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Size_plus.Location = new System.Drawing.Point(365, 53);
+            this.Size_plus.Name = "Size_plus";
+            this.Size_plus.Size = new System.Drawing.Size(45, 30);
+            this.Size_plus.TabIndex = 2;
+            this.Size_plus.Text = "A+";
+            this.Size_plus.UseVisualStyleBackColor = true;
+            this.Size_plus.Click += new System.EventHandler(this.Size_plus_Click);
+            // 
             // cmb_size
             // 
             this.cmb_size.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -190,7 +216,7 @@
             // SaveButton
             // 
             this.SaveButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.SaveButton.Location = new System.Drawing.Point(12, 12);
+            this.SaveButton.Location = new System.Drawing.Point(6, 13);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(111, 35);
             this.SaveButton.TabIndex = 5;
@@ -201,7 +227,7 @@
             // OpenButton
             // 
             this.OpenButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.OpenButton.Location = new System.Drawing.Point(12, 53);
+            this.OpenButton.Location = new System.Drawing.Point(6, 55);
             this.OpenButton.Name = "OpenButton";
             this.OpenButton.Size = new System.Drawing.Size(111, 35);
             this.OpenButton.TabIndex = 6;
@@ -276,40 +302,25 @@
             this.UnderIndex.UseVisualStyleBackColor = false;
             this.UnderIndex.Click += new System.EventHandler(this.UnderIndex_Click);
             // 
-            // Size_plus
+            // groupBox4
             // 
-            this.Size_plus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Size_plus.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Size_plus.Location = new System.Drawing.Point(365, 53);
-            this.Size_plus.Name = "Size_plus";
-            this.Size_plus.Size = new System.Drawing.Size(45, 30);
-            this.Size_plus.TabIndex = 2;
-            this.Size_plus.Text = "A+";
-            this.Size_plus.UseVisualStyleBackColor = true;
-            this.Size_plus.Click += new System.EventHandler(this.Size_plus_Click);
-            // 
-            // Size_minus
-            // 
-            this.Size_minus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Size_minus.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Size_minus.Location = new System.Drawing.Point(422, 53);
-            this.Size_minus.Name = "Size_minus";
-            this.Size_minus.Size = new System.Drawing.Size(45, 30);
-            this.Size_minus.TabIndex = 3;
-            this.Size_minus.Text = "A-";
-            this.Size_minus.UseVisualStyleBackColor = true;
-            this.Size_minus.Click += new System.EventHandler(this.Size_minus_Click);
+            this.groupBox4.Controls.Add(this.SaveButton);
+            this.groupBox4.Controls.Add(this.OpenButton);
+            this.groupBox4.Location = new System.Drawing.Point(12, 5);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(126, 100);
+            this.groupBox4.TabIndex = 9;
+            this.groupBox4.TabStop = false;
             // 
             // MyTextEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1278, 544);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.UnderIndex);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.OpenButton);
             this.Controls.Add(this.UpperIndex);
-            this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.colorPanel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -321,6 +332,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -348,6 +360,7 @@
         private System.Windows.Forms.Button UnderIndex;
         private System.Windows.Forms.Button Size_minus;
         private System.Windows.Forms.Button Size_plus;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }
 
